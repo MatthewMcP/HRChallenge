@@ -1,22 +1,24 @@
-
-
 $(function() {
-  console.log('hello world :o');
   
-  $.get('/dreams', function(dreams) {
-    dreams.forEach(function(dream) {
-      $('<li></li>').text(dream).appendTo('ul#dreams');
+  function hasValue(obj, key, value) {
+    return obj.hasOwnProperty(key) && obj[key] === value;
+}
+  
+  $("#submitUsernameBtn").click(function() {
+      event.preventDefault();
+      var username = $("#UsernameInput").val();
+      
+    $.get("/getuserdata", function( data ) {
+      if(data.some(function(obj) { return hasValue(obj, "username", username); })){
+        show("#PassWordDiv");
+        hide("#NewUserDiv");
+      }
+      else{
+        show("#NewUserDiv");
+        hide("#PassWordDiv");
+      }
     });
+    
   });
-
-  $('form').submit(function(event) {
-    event.preventDefault();
-    dream = $('input').val();
-    $.post('/dreams?' + $.param({dream: dream}), function() {
-      $('<li></li>').text(dream).appendTo('ul#dreams');
-      $('input').val('');
-      $('input').focus();
-    });
-  });
-
+  
 });

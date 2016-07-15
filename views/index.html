@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
     <head>
       <title>{{title}}</title>
@@ -12,28 +12,73 @@
     {% include '_header.html' %}
 
     <main>
-      <p class="bold">Oh his,</p>
-      
-      <a href="/home.html">
-        <span>Go Homes</span>  
-      </a>
-      
-      <p class="bold">Or</p>
-      <a href="/marvin.html">
-        <span>Talk to marvin</span>  
-      </a>
-      
-      <p class="bold">Or</p>
-      <p>Tell me your username:</p>
-      <form>
-        <input type="text" maxlength="100" placeholder="username">
-        <button type="submit">Submit</button>
-      </form>
+      <div class="row inline-block">
+          <div class="row">
+            <p class="bold">Welcome to Deloitte's On-boarding systems</p>
+          </div>
+          <div class="spacer_10"></div>
 
+          <div class="row">
+            <a href="/marvin.html">
+              <span>Talk to marvin</span>  
+            </a>
+          </div>
+          <div class="spacer_10"></div>
+
+          <div class="row">
+            <p class="bold">Or</p>
+          </div>
+          <div class="spacer_10"></div>
+
+          <div class="row">
+            <p>Login</p>
+            <form>
+    		      <p>Username:</p>
+              <input type="text" maxlength="100" placeholder="username" id="UsernameInput">
+              <button type="submit" id="submitUsernameBtn">Submit Username</button>
+            </form>
+            <div id="PassWordDiv" class="hideByDefault">
+              <p>Password:</p>
+              <input type="text" maxlength="100" placeholder="password" id="password">
+              <button type="">Login</button>
+            </div>
+            
+            <div id="NewUserDiv" class="hideByDefault">
+              <p>New Password:</p>
+              <input type="text" maxlength="100" placeholder="Password" id="newpassword1">
+              <p>Reenter New Password:</p>
+              <input type="text" maxlength="100" placeholder="Password" id="newpassword2">
+              <button type="submit">Create Account and Refresh Page</button>
+            </div>
+            
+            <div class="alert alert-info hideByDefault" id="SuccessfulRegisterMsg">
+              Username and password saved. Please enter a value in the username box
+            </div>
+    
+            <div class="alert alert-danger hideByDefault" id="PasswordNotMatchMsg">
+              Passwords do not match
+            </div>
+        </div>
+
+       {% for post in userLoginData %}
+          {% block post %}
+            <article>
+              <h4>
+                {{post.username}}
+              </h4>
+              <p>
+                {{post.password}}
+              </p>
+            </article>
+          {% endblock %}
+        {% endfor %}
+
+      </div>
     </main>
 
     {% include '_footer.html' %}
     {% include '_sharedScriptsAndStyles.html' %}
+    <script src="/index.js"></script>
 
   </body>
 </html>
